@@ -5438,7 +5438,7 @@ make_unique_key_name(THD *thd, LEX_CSTRING prefix,
 
   memcpy(ptr, prefix.str, prefix.length);
   ptr+= prefix.length;
-  DBUG_ASSERT(ptr - buf < sizeof(buf));
+  DBUG_ASSERT(ptr - buf < (long int)sizeof(buf));
   *ptr= 0;
   prefix.str= buf;
   if (foreign)
@@ -12629,7 +12629,6 @@ bool fk_handle_rename(THD *thd, TABLE_LIST *old_table, const LEX_CSTRING *new_db
     Share_acquire ref_sa(thd, tl);
     if (!ref_sa.share)
       return true;
-    TABLE_SHARE *ref_share= ref_sa.share;
     if (fk_rename_backup.push_back(std::move(ref_sa)))
       goto mem_error;
     DBUG_ASSERT(!ref_sa.share);

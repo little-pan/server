@@ -1202,7 +1202,7 @@ void Foreign_key_io::store_fk(FK_info &fk, uchar *&pos)
     Lex_cstring *ref_col= ref_it++;
     pos= store_string(pos, *ref_col);
   }
-  DBUG_ASSERT(pos - old_pos == fk_size(fk));
+  DBUG_ASSERT(pos - old_pos == (long int)fk_size(fk));
 }
 
 void Foreign_key_io::store_hint(FK_info &rk, uchar *&pos)
